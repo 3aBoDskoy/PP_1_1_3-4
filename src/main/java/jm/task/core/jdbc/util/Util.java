@@ -25,5 +25,14 @@ public abstract class Util {
         return connection;
     }
 
+    public static void closeConnection(){
+        try {
+            getConnection().close();
+            System.out.println("Close connection - OK");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public abstract void add(User user) throws SQLException;
 }
