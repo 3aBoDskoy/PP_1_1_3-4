@@ -6,80 +6,38 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jm.task.core.jdbc.util.Util.getConnection;
+
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private static final Connection connection = getConnection();
 
-    public UserDaoJDBCImpl() {
-
-    }
-
+    @Override
     public void createUsersTable() {
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users " +
-                    "(id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), lastname VARCHAR(50), age TINYINT)");
-            System.out.println("Base create - OK");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
+    @Override
     public void dropUsersTable() {
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DROP TABLE IF EXISTS users");
-            System.out.println("Table users drop - OK");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public void cleanUsersTable() {
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("TRUNCATE TABLE users");
-            System.out.println("Table users clean - OK");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    @Override
     public void saveUser(String name, String lastName, byte age) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, lastname, age) VALUES (?, ?, ?)")) {
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.setByte(3, age);
-            preparedStatement.executeUpdate();
-            System.out.println("User save - OK");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
+    @Override
     public void removeUserById(long id) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id = ?")) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-            System.out.println("Remove user - OK");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
+    @Override
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
+        return null;
+    }
 
-        try (ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM users")) {
-            while (resultSet.next()) {
-                User user = new User(resultSet.getString("name"),
-                        resultSet.getString("lastname"), resultSet.getByte("age"));
-                user.setId(resultSet.getLong("id"));
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void cleanUsersTable() {
 
-        return users;
     }
 }

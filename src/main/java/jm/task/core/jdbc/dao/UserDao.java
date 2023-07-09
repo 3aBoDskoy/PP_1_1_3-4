@@ -1,6 +1,6 @@
 package jm.task.core.jdbc.dao;
 
-import jakarta.persistence.Id;
+
 import jm.task.core.jdbc.model.User;
 
 import java.sql.SQLException;
